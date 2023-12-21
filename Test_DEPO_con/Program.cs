@@ -77,6 +77,7 @@ class Con_Test_DEPO
                     {
                         string Company_NAME = Show_Employee_reader.GetValue(0).ToString();
                         Console.WriteLine(Company_NAME);
+
                     }
                     // определяем выполняемую команду
                     connection.Close();
