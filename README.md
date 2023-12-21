@@ -1,8 +1,7 @@
 СОЗДАНИЕ И ЗАПОЛНЕНИЕ БД
+
 CREATE DATABASE [Test_DEPO_DB];
-
 GO
-
 CREATE TABLE [Test_DEPO_DB].[dbo].[Company](
 
                 [Company_ID] int IDENTITY (1,1) NOT NULL PRIMARY KEY CLUSTERED,
@@ -16,9 +15,7 @@ CREATE TABLE [Test_DEPO_DB].[dbo].[Company](
                 [Company_Actual_Address] nvarchar(255) NOT NULL
 
 );
-
 GO
-
 CREATE TABLE [Test_DEPO_DB].[dbo].[Employee](
 
                 [Employe_ID] int IDENTITY (1,1) NOT NULL PRIMARY KEY CLUSTERED,
@@ -40,9 +37,7 @@ CREATE TABLE [Test_DEPO_DB].[dbo].[Employee](
                 [Employee_Passport_Number] nvarchar(255) NOT NULL
 
 );
-
 GO
-
 INSERT INTO [Test_DEPO_DB].[dbo].[Company]
 
 (
@@ -56,9 +51,7 @@ INSERT INTO [Test_DEPO_DB].[dbo].[Company]
                 Company_Actual_Address
 
 )
-
 VALUES
-
 (
 
                 N'DEPO',
@@ -70,9 +63,7 @@ VALUES
                 N'ул. Зенитчиков, 12, Москва'
 
 );
-
 GO
-
 INSERT INTO [Test_DEPO_DB].[dbo].[Employee]
 
 (
@@ -92,9 +83,7 @@ INSERT INTO [Test_DEPO_DB].[dbo].[Employee]
                 Employee_Passport_Number
 
 )
-
 VALUES
-
 (
 
                 1,
