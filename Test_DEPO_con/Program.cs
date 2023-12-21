@@ -30,7 +30,7 @@ class Con_Test_DEPO
         Console.SetCursorPosition((Console.WindowWidth - 7) / 2, Console.CursorTop);
         Console.WriteLine("TEST DB\n");
 
-        //Подключение к БД--------------------------------------------------------------------------------------------
+        //Проверка подключения к БД--------------------------------------------------------------------------------------------
         string connectionString = "Server=(localdb)\\mssqllocaldb;Database=Test_DEPO_DB;Trusted_Connection=True;";
         SqlConnection connection = new SqlConnection(connectionString);
         connection.Open();
@@ -68,6 +68,11 @@ class Con_Test_DEPO
                         Console.WriteLine(Company_NAME);
                     }
                     connection.Close();
+                    Console.WriteLine("\n\nWhat did you want to do?\n------------------------------------------------------\n" +
+                    "1 - Show list of companies\n" +
+                    "2 - Show list of Employee\n" +
+                    "3 - Add Company\n" +
+                    "4 - Add Employee");
                     break;
 
                 case "2":// Вывод списка сотрудников
@@ -84,6 +89,11 @@ class Con_Test_DEPO
 
                     }
                     connection.Close();
+                    Console.WriteLine("\n\nWhat did you want to do?\n------------------------------------------------------\n" +
+                    "1 - Show list of companies\n" +
+                    "2 - Show list of Employee\n" +
+                    "3 - Add Company\n" +
+                    "4 - Add Employee");
                     break;
 
                 case "3":// Добавление новой компании
@@ -171,6 +181,12 @@ class Con_Test_DEPO
                     SqlCommand ADD_Company_command = new SqlCommand(Add_Company, connection);
                     SqlDataReader ADD_Company_reader = ADD_Company_command.ExecuteReader();
                     connection.Close();
+                    Console.WriteLine("\nA new company added sucesfull");
+                    Console.WriteLine("\n\nWhat did you want to do?\n------------------------------------------------------\n" +
+                    "1 - Show list of companies\n" +
+                    "2 - Show list of Employee\n" +
+                    "3 - Add Company\n" +
+                    "4 - Add Employee");
                     break;
 
                 case "4":
