@@ -1,5 +1,5 @@
 СОЗДАНИЕ И ЗАПОЛНЕНИЕ БД
-
+```SQL
 CREATE DATABASE [Test_DEPO_DB];
 GO
 CREATE TABLE [Test_DEPO_DB].[dbo].[Company](
@@ -101,3 +101,4 @@ VALUES
                 N'333444'
 
 );
+```
