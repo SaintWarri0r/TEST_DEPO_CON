@@ -1,5 +1,7 @@
-﻿
-using System.Data.SqlClient;
+﻿using System.Data.SqlClient;
+
+
+
 
 public class Company
 {
@@ -55,7 +57,7 @@ class Con_Test_DEPO
             
             switch (Console.ReadLine())
             {
-                case "1":
+                case "1":// Вывод списка компаний
                     connection.Open();
                     string Show_Company_List = "SELECT Company_Name FROM Company";
                     SqlCommand Show_Company_command = new SqlCommand(Show_Company_List,connection);
@@ -65,22 +67,114 @@ class Con_Test_DEPO
                         string Company_NAME = Show_Company_reader.GetValue(0).ToString();
                         Console.WriteLine(Company_NAME);
                     }
-                    // определяем выполняемую команду
                     connection.Close();
                     break;
-                case "2":
+
+                case "2":// Вывод списка сотрудников
                     connection.Open();
                     string Show_Employee_List = "SELECT * FROM Employee";
                     SqlCommand Show_Employee_command = new SqlCommand(Show_Employee_List, connection);
                     SqlDataReader Show_Employee_reader = Show_Employee_command.ExecuteReader();
                     foreach (var row in Show_Employee_reader)
                     {
-                        string Company_NAME = Show_Employee_reader.GetValue(0).ToString();
-                        Console.WriteLine(Company_NAME);
+                        string Employee_Surname = Show_Employee_reader.GetValue(2).ToString();
+                        string Employee_Name = Show_Employee_reader.GetValue(3).ToString();
+                        string Employee_Patronymic = Show_Employee_reader.GetValue(4).ToString();
+                        Console.WriteLine($"{Employee_Surname} {Employee_Name} {Employee_Patronymic}");
 
                     }
-                    // определяем выполняемую команду
                     connection.Close();
+                    break;
+
+                case "3":// Добавление новой компании
+
+                    Company new_company = new Company();
+                    bool stopper = false;
+                    while (stopper == false)
+                    {
+                        Console.WriteLine("Введите название компании: ");
+                        string temp_name = Console.ReadLine();
+                        if (temp_name == "")
+                        {
+                            Console.WriteLine("ОШИБКА!");
+                        }
+                        else
+                        {
+                            new_company.Company_Name = temp_name;
+                            stopper = true;
+                        }
+                    }
+                    stopper = false;
+
+                    while (stopper == false)
+                    {
+                        Console.WriteLine("Введите ИНН компании: ");
+                        string temp_name = Console.ReadLine();
+                        if (temp_name == "" || temp_name.Length < 10)
+                        {
+                            Console.WriteLine("ОШИБКА!");
+                        }
+                        else
+                        {
+                            new_company.Company_INN = temp_name;
+                            stopper = true;
+                        }
+                    }
+                    stopper = false;
+
+                    while (stopper == false)
+                    {
+                        Console.WriteLine("Введите юр.адрес компании: ");
+                        string temp_name = Console.ReadLine();
+                        if (temp_name == "")
+                        {
+                            Console.WriteLine("ОШИБКА!");
+                        }
+                        else
+                        {
+                            new_company.Company_Legal_Address = temp_name;
+                            stopper = true;
+                        }
+                    }
+                    stopper = false;
+
+                    while (stopper == false)
+                    {
+                        Console.WriteLine("Введите факт.адрес компании: ");
+                        string temp_name = Console.ReadLine();
+                        if (temp_name == "")
+                        {
+                            Console.WriteLine("ОШИБКА!");
+                        }
+                        else
+                        {
+                            new_company.Company_Actual_Address = temp_name;
+                            stopper = true;
+                        }
+                    }
+                    stopper = false;
+
+                    connection.Open();
+                    string Add_Company = "INSERT INTO Company " +
+                        "(" +
+                        "Company_Name," +
+                        "Company_INN," +
+                        "Company_Legal_Address," +
+                        "Company_Actual_Address" +
+                        ") VALUES" +
+                        "(" +
+                        $"N\'{new_company.Company_Name}\'," +
+                        $"N\'{new_company.Company_INN}\'," +
+                        $"N\'{new_company.Company_Legal_Address}\'," +
+                        $"N\'{new_company.Company_Actual_Address}\'" +
+                        ");";
+                    SqlCommand ADD_Company_command = new SqlCommand(Add_Company, connection);
+                    SqlDataReader ADD_Company_reader = ADD_Company_command.ExecuteReader();
+                    connection.Close();
+                    break;
+
+                case "4":
+
                     break;
             }
 
