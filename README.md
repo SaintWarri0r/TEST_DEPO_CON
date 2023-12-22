@@ -1,3 +1,8 @@
+TODO
+1. CSV Import/Export
+2. Improve the verification of the entered data
+3. ?Do WindowsForm interface
+   
 СОЗДАНИЕ И ЗАПОЛНЕНИЕ БД
 ```SQL
 CREATE DATABASE [Test_DEPO_DB];
