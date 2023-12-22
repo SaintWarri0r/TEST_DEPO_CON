@@ -1,4 +1,5 @@
-﻿using System.Data.SqlClient;
+﻿using System;
+using System.Data.SqlClient;
 
 
 
@@ -12,6 +13,7 @@ public class Company
 }
 public class Employee
 {
+    public string Employee_Company_ID { get; set; }
     public string Employee_Surname { get; set; }
     public string Employee_Name { get; set; }
     public string? Employee_Patronymic { get; set; }
@@ -189,9 +191,155 @@ class Con_Test_DEPO
                     "4 - Add Employee");
                     break;
 
-                case "4":
+                case "4"://Добавление нового сотрудника
+                   Employee new_employee = new Employee();
+                    stopper = false;
+                    while (stopper == false)
+                    {
+                        Console.WriteLine("Введите ID компании, в которой работает сотрудник: ");
+                        string temp_name = Console.ReadLine();
+                        if (temp_name == "")
+                        {
+                            Console.WriteLine("ОШИБКА!");
+                        }
+                        else
+                        {
+                            new_employee.Employee_Company_ID = temp_name;
+                            stopper = true;
+                        }
+                    }
+                    stopper = false;
 
+                    while (stopper == false)
+                    {
+                        Console.WriteLine("Введите фамилию сотрудника: ");
+                        string temp_name = Console.ReadLine();
+                        if (temp_name == "")
+                        {
+                            Console.WriteLine("ОШИБКА!");
+                        }
+                        else
+                        {
+                            new_employee.Employee_Surname = temp_name;
+                            stopper = true;
+                        }
+                    }
+                    stopper = false;
+
+                    while (stopper == false)
+                    {
+                        Console.WriteLine("Введите имя сотрудника: ");
+                        string temp_name = Console.ReadLine();
+                        if (temp_name == "")
+                        {
+                            Console.WriteLine("ОШИБКА!");
+                        }
+                        else
+                        {
+                            new_employee.Employee_Name = temp_name;
+                            stopper = true;
+                        }
+                    }
+                    stopper = false;
+
+                    while (stopper == false)
+                    {
+                        Console.WriteLine("Введите отчество сотрудника: ");
+                        string temp_name = Console.ReadLine();
+                        if (temp_name == "")
+                        {
+                            new_employee.Employee_Patronymic = null;
+                            stopper = true;
+                        }
+                        else
+                        {
+                            new_employee.Employee_Patronymic = temp_name;
+                            stopper = true;
+                        }
+                    }
+                    stopper = false;
+
+                    while (stopper == false)
+                    {
+                        Console.WriteLine("Введите дату рождения сотрудника в формате YYYY.MM.DD : ");
+                        string temp_name = Console.ReadLine();
+                        if (DateTime.TryParse(temp_name, out DateTime result) == false)
+                        {
+                            Console.WriteLine("ОШИБКА!");
+                        }
+                        else
+                        {
+                            new_employee.Employee_Date_Of_Birth = temp_name;
+                            stopper = true;
+                        }
+                    }
+                    stopper = false;
+
+                    while (stopper == false)
+                    {
+                        Console.WriteLine("Введите серию паспорта сотрудника: ");
+                        string temp_name = Console.ReadLine();
+                        
+                        if (temp_name == "")
+                        {
+                            Console.WriteLine("ОШИБКА!");
+                        }
+                        else
+                        {
+                            new_employee.Employee_Passport_Series = temp_name;
+                            stopper = true;
+                        }
+                    }
+                    stopper = false;
+                    while (stopper == false)
+                    {
+                        Console.WriteLine("Введите номер паспорта сотрудника ");
+                        string temp_name = Console.ReadLine();
+                        if (temp_name == "")
+                        {
+                            Console.WriteLine("ОШИБКА!");
+                        }
+                        else
+                        {
+                            new_employee.Employee_Passport_Number = temp_name;
+                            stopper = true;
+                        }
+                    }
+                    stopper = false;
+
+                    connection.Open();
+                    string Add_empoloyee = "INSERT INTO Employee " +
+                        "(" +
+                        "Employee_Company_ID ," +
+                        "Employee_Surname ," +
+                        "Employee_Name ," +
+                        "Employee_Patronymic, " +
+                        "Employee_Date_Of_Birth, " +
+                        "Employee_Passport_Series, " +
+                        "Employee_Passport_Number " +
+                        ") VALUES" +
+                        "(" +
+                        $"N\'{new_employee.Employee_Company_ID}\'," +
+                        $"N\'{new_employee.Employee_Surname}\'," +
+                        $"N\'{new_employee.Employee_Name}\'," +
+                        $"N\'{new_employee.Employee_Patronymic}\'," +
+                        $"N\'{new_employee.Employee_Date_Of_Birth}\'," +
+                        $"N\'{new_employee.Employee_Passport_Series}\'," +
+                        $"N\'{new_employee.Employee_Passport_Number}\'" +
+                        ");";
+                    SqlCommand ADD_Employee_command = new SqlCommand(Add_empoloyee, connection);
+                    SqlDataReader Add_empoloyee_reader = ADD_Employee_command.ExecuteReader();
+                    connection.Close();
+                    Console.WriteLine("\nA new employee added sucesfull");
+                    Console.WriteLine("\n\nWhat did you want to do?\n------------------------------------------------------\n" +
+                    "1 - Show list of companies\n" +
+                    "2 - Show list of Employee\n" +
+                    "3 - Add Company\n" +
+                    "4 - Add Employee");
                     break;
+                    case "5"://Экспорт в формате csv
+
+                        break;
             }
 
 
