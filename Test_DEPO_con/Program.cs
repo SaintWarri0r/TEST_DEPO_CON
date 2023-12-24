@@ -391,7 +391,63 @@ class Con_Test_DEPO
                     reader.Close();
                     connection.Close();
                     break;
-                
+                case "6"://Import CSV to DB
+                    string Importing_Table_Name = null;
+                    Console.WriteLine("which database do you want to import the data into?\n" +
+                        "1 - Employee\n" +
+                        "2 - Company");
+                    if (Console.ReadLine() == "1")
+                    {
+                        Importing_Table_Name = "Employee";
+                    }
+                    else
+                    {
+                        Importing_Table_Name = "Company";
+                    }
+                    string base_path = @"C:\Users\SaintWarrior\Desktop\DEPO_test";
+                    Console.WriteLine("Enter the name of the imported file");
+                    string name_of_file = Console.ReadLine();
+                    string import_path = Path.Combine(@base_path, name_of_file + ".csv");
+                    DataTable csvData = new DataTable();
+
+                    using (TextFieldParser csvReader = new TextFieldParser(import_path))
+                    {
+                        csvReader.SetDelimiters(new string[] { "," });
+                        csvReader.HasFieldsEnclosedInQuotes = true;
+                        string[] colFields = csvReader.ReadFields();
+                        foreach (string column in colFields)
+                        {
+                            DataColumn datecolumn = new DataColumn(column);
+                            datecolumn.AllowDBNull = true;
+                            csvData.Columns.Add(datecolumn);
+                        }
+                        while (!csvReader.EndOfData)
+                        {
+                            string[] fieldData = csvReader.ReadFields();
+                            //Making empty value as null
+                            for (int i = 0; i < fieldData.Length; i++)
+                            {
+                                if (fieldData[i] == "")
+                                {
+                                    fieldData[i] = null;
+                                }
+                            }
+                            csvData.Rows.Add(fieldData);
+                        }
+                    }
+                    
+                    connection.Open();
+                    using (SqlBulkCopy s = new SqlBulkCopy(connection))
+                    {
+                        s.DestinationTableName = Importing_Table_Name;
+                        foreach (var column in csvData.Columns)
+                            s.ColumnMappings.Add(column.ToString(), column.ToString());
+                        s.WriteToServer(csvData);
+                    }
+                    connection.Close();
+
+                    Console.WriteLine("Data imported succesfully!");
+                        break;
             }
 
 
