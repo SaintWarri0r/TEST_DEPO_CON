@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.FileIO;
+using System;
+using System.Data;
 using System.Data.SqlClient;
 
 
@@ -49,10 +51,11 @@ class Con_Test_DEPO
         //-------------------------------------------------------------------------------------------------------------
 
         Console.WriteLine("\n\nWhat did you want to do?\n------------------------------------------------------\n" +
-            "1 - Show list of companies\n" +
-            "2 - Show list of Employee\n" +
-            "3 - Add Company\n" +
-            "4 - Add Employee");
+                    "1 - Show list of companies\n" +
+                    "2 - Show list of Employee\n" +
+                    "3 - Add Company\n" +
+                    "4 - Add Employee\n" +
+                    "5 - Export DB");
 
         while (true)
         {
@@ -74,7 +77,8 @@ class Con_Test_DEPO
                     "1 - Show list of companies\n" +
                     "2 - Show list of Employee\n" +
                     "3 - Add Company\n" +
-                    "4 - Add Employee");
+                    "4 - Add Employee\n" +
+                    "5 - Export DB");
                     break;
 
                 case "2":// Вывод списка сотрудников
@@ -95,7 +99,8 @@ class Con_Test_DEPO
                     "1 - Show list of companies\n" +
                     "2 - Show list of Employee\n" +
                     "3 - Add Company\n" +
-                    "4 - Add Employee");
+                    "4 - Add Employee\n" +
+                    "5 - Export DB");
                     break;
 
                 case "3":// Добавление новой компании
@@ -188,7 +193,8 @@ class Con_Test_DEPO
                     "1 - Show list of companies\n" +
                     "2 - Show list of Employee\n" +
                     "3 - Add Company\n" +
-                    "4 - Add Employee");
+                    "4 - Add Employee\n" +
+                    "5 - Export DB");
                     break;
 
                 case "4"://Добавление нового сотрудника
@@ -335,11 +341,57 @@ class Con_Test_DEPO
                     "1 - Show list of companies\n" +
                     "2 - Show list of Employee\n" +
                     "3 - Add Company\n" +
-                    "4 - Add Employee");
+                    "4 - Add Employee\n" +
+                    "5 - Export DB");
                     break;
-                    case "5"://Экспорт в формате csv
 
-                        break;
+                case "5"://Экспорт в формате csv
+                    DateTime current_time = DateTime.Now;
+                    var CSV_Timestamp = current_time.ToFileTimeUtc();
+                    string path = @"C:\Users\SaintWarrior\Desktop\DEPO_test";
+                    string Exporting_Table_Name = null;
+                    Console.WriteLine("Which table do you want to export?\n" +
+                        "1 - Employee\n" +
+                        "2 - Company");
+                    if (Console.ReadLine() == "1")
+                    {
+                        Exporting_Table_Name = "Employee";
+                        path = Path.Combine(path,$"{Exporting_Table_Name}_" + CSV_Timestamp + ".csv");
+                    }
+                    else
+                    {
+                        Exporting_Table_Name = "Company";
+                        path = Path.Combine(path,$"{Exporting_Table_Name}_" + CSV_Timestamp + ".csv");
+                    }
+
+                    //File.Create(path);
+                    
+                    connection.Open();
+
+                    SqlCommand sqlCmd = new SqlCommand(
+                        $"Select * from {Exporting_Table_Name}", connection);
+                    SqlDataReader reader = sqlCmd.ExecuteReader();
+
+                    StreamWriter sw = new StreamWriter(path,true,System.Text.Encoding.UTF8);
+                    object[] output = new object[reader.FieldCount];
+
+                    for (int i = 0; i < reader.FieldCount; i++)
+
+                        output[i] = reader.GetName(i);
+
+                    sw.WriteLine(string.Join(",", output));
+
+                    while (reader.Read())
+                    {
+                        reader.GetValues(output);
+                        sw.WriteLine(string.Join(",", output));
+                    }
+                    
+                    sw.Close();
+                    reader.Close();
+                    connection.Close();
+                    break;
+                
             }
 
 
