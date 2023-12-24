@@ -55,7 +55,8 @@ class Con_Test_DEPO
                     "2 - Show list of Employee\n" +
                     "3 - Add Company\n" +
                     "4 - Add Employee\n" +
-                    "5 - Export DB");
+                    "5 - Export DB\n" +
+                    "6 - Import DB");
 
         while (true)
         {
@@ -74,11 +75,12 @@ class Con_Test_DEPO
                     }
                     connection.Close();
                     Console.WriteLine("\n\nWhat did you want to do?\n------------------------------------------------------\n" +
-                    "1 - Show list of companies\n" +
-                    "2 - Show list of Employee\n" +
-                    "3 - Add Company\n" +
-                    "4 - Add Employee\n" +
-                    "5 - Export DB");
+                     "1 - Show list of companies\n" +
+                     "2 - Show list of Employee\n" +
+                     "3 - Add Company\n" +
+                     "4 - Add Employee\n" +
+                     "5 - Export DB\n" +
+                     "6 - Import DB");
                     break;
 
                 case "2":// Вывод списка сотрудников
@@ -100,7 +102,8 @@ class Con_Test_DEPO
                     "2 - Show list of Employee\n" +
                     "3 - Add Company\n" +
                     "4 - Add Employee\n" +
-                    "5 - Export DB");
+                    "5 - Export DB\n" +
+                    "6 - Import DB");
                     break;
 
                 case "3":// Добавление новой компании
@@ -194,7 +197,8 @@ class Con_Test_DEPO
                     "2 - Show list of Employee\n" +
                     "3 - Add Company\n" +
                     "4 - Add Employee\n" +
-                    "5 - Export DB");
+                    "5 - Export DB\n" +
+                    "6 - Import DB");
                     break;
 
                 case "4"://Добавление нового сотрудника
@@ -342,13 +346,16 @@ class Con_Test_DEPO
                     "2 - Show list of Employee\n" +
                     "3 - Add Company\n" +
                     "4 - Add Employee\n" +
-                    "5 - Export DB");
+                    "5 - Export DB\n" +
+                    "6 - Import DB");
                     break;
 
                 case "5"://Экспорт в формате csv
                     DateTime current_time = DateTime.Now;
                     var CSV_Timestamp = current_time.ToFileTimeUtc();
                     string path = @"C:\Users\SaintWarrior\Desktop\DEPO_test";
+                    Console.WriteLine($"enter the path to save\ne.g {path}");
+                    path = Console.ReadLine();
                     string Exporting_Table_Name = null;
                     Console.WriteLine("Which table do you want to export?\n" +
                         "1 - Employee\n" +
@@ -390,6 +397,14 @@ class Con_Test_DEPO
                     sw.Close();
                     reader.Close();
                     connection.Close();
+                    Console.WriteLine($"Table {Exporting_Table_Name} has been successfully saved at {path}");
+                    Console.WriteLine("\n\nWhat did you want to do?\n------------------------------------------------------\n" +
+                    "1 - Show list of companies\n" +
+                    "2 - Show list of Employee\n" +
+                    "3 - Add Company\n" +
+                    "4 - Add Employee\n" +
+                    "5 - Export DB\n" +
+                    "6 - Import DB");
                     break;
                 case "6"://Import CSV to DB
                     string Importing_Table_Name = null;
@@ -447,7 +462,14 @@ class Con_Test_DEPO
                     connection.Close();
 
                     Console.WriteLine("Data imported succesfully!");
-                        break;
+                    Console.WriteLine("\n\nWhat did you want to do?\n------------------------------------------------------\n" +
+                    "1 - Show list of companies\n" +
+                    "2 - Show list of Employee\n" +
+                    "3 - Add Company\n" +
+                    "4 - Add Employee\n" +
+                    "5 - Export DB\n" +
+                    "6 - Import DB");
+                    break;
             }
 
 
