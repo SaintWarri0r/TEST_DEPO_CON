@@ -1,7 +1,9 @@
 TODO
-1. Add encryption of input data sent to the DB
-2. Improve the verification of the entered data
-3. ?Do WindowsForm interface
+1. Wrap the raw code in try/cath
+2. Add encryption of input data sent to the DB
+3. Improve the verification of the entered data
+4. ?Do WindowsForm interface
+
    
 СОЗДАНИЕ И ЗАПОЛНЕНИЕ БД
 ```SQL
