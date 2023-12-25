@@ -1,5 +1,5 @@
 TODO
-1. CSV Import/Export
+1. Add encryption of input data sent to the DB
 2. Improve the verification of the entered data
 3. ?Do WindowsForm interface
    
